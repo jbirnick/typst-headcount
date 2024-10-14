@@ -63,7 +63,7 @@ To make another `counter` inherit from the heading counter, you have to do **two
    
    - `dependent-numbering(style, level: 1)` (needs `context`)
 
-     Is a replacement of the `numbering` function, with the difference that it precedes any counter value with `level` many values of the heading counter.
+     Is a replacement for the `numbering` function, with the difference that it precedes any counter value with `level` many values of the heading counter.
 
    ```typ
    #import "@preview/heading-dependent-counters:0.1.0": *
