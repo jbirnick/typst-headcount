@@ -62,6 +62,7 @@ To make another `counter` inherit from the heading counter, you have to do **two
 1. For the numbering of your counter, you have to use `dependent-numbering(...)`.
    
    - `dependent-numbering(style, level: 1)` (needs `context`)
+
      Is a replacement of the `numbering` function, with the difference that it precedes any counter value with `level` many values of the heading counter.
 
    ```typ
@@ -91,6 +92,7 @@ To make another `counter` inherit from the heading counter, you have to do **two
 2. For resetting the counter at the appropriate places, you need to equip `heading` with the `show` rule that `reset-counter(...)` returns.
 
    - `reset-counter(counter, level: 1)` (needs `context`)
+
      Returns a function that should be used as a `show` rule for `heading`. It will reset `counter` if the level of the heading is less than or equal to `level`.
 
    ```typ
