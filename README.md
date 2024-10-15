@@ -1,7 +1,7 @@
 > [!NOTE]
-> This is a [Typst](https://typst.app/) package. Click [here](https://typst.app/universe/package/heading-dependent-counters/) to find it in the Typst Universe.
+> This is a [Typst](https://typst.app/) package. Click [here](https://typst.app/universe/package/headcount/) to find it in the Typst Universe.
 
-# `heading-dependent-counters`
+# `headcount`
 
 This package allows you to make **counters depend on the current chapter/section number**.
 
@@ -12,7 +12,7 @@ The advantage compared to [`rich-counter`](https://typst.app/universe/package/ri
 In the following example, `mycounter` inherits the first level from headings (but not deeper levels).
 
 ```typ
-#import "@preview/heading-dependent-counters:0.1.0": *
+#import "@preview/headcount:0.1.0": *
 #import "@preview/great-theorems:0.1.0": *
 
 #show: great-theorems-init
@@ -66,7 +66,7 @@ To make another `counter` inherit from the heading counter, you have to do **two
      Is a replacement for the `numbering` function, with the difference that it precedes any counter value with `level` many values of the heading counter.
 
    ```typ
-   #import "@preview/heading-dependent-counters:0.1.0": *
+   #import "@preview/headcount:0.1.0": *
    
    #set heading(numbering: "1.1")
    
@@ -96,7 +96,7 @@ To make another `counter` inherit from the heading counter, you have to do **two
      Returns a function that should be used as a `show` rule for `heading`. It will reset `counter` if the level of the heading is less than or equal to `level`.
 
    ```typ
-   #import "@preview/heading-dependent-counters:0.1.0": *
+   #import "@preview/headcount:0.1.0": *
    
    #set heading(numbering: "1.1")
    #show heading: reset-counter(mycounter, levels: 1)
