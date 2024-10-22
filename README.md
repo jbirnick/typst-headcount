@@ -5,7 +5,7 @@
 
 This package allows you to make **counters depend on the current chapter/section number**.
 
-The advantage compared to [`rich-counter`](https://typst.app/universe/package/rich-counters/) is that it is more efficient and you stick with native `counter`s.
+The advantage compared to [rich-counter](https://typst.app/universe/package/rich-counters/) is that it is more efficient and you stick with native `counter`s.
 
 ## Showcase
 
