@@ -182,6 +182,69 @@ For example:
 
 ## Limitations
 
+### Remember to `reset-counter` if you update `counter(heading)` manually
+
 Due to current Typst limitations, there is no way to detect manual updates or steps of the heading counter, like `counter(heading).update(...)` or `counter(heading).step(...)`.
 Only occurrences of actual `heading`s can be detected.
 So make sure that after you call e.g. `counter(heading).update(...)`, you place a heading directly after it, before you use any counters that depend on the heading counter.
+
+### Use canonical `ref` if possible
+
+Due to current Typst limitations, the context of `dependent-numbering` is not correct if the `ref` has been reconstructed in a `show` rule, making the displayed `counter(heading)` wrong.
+
+To be specific, in the following simple example, referencing `dependent-numbering` in other sections works as expected. 
+
+```typ
+#set figure(numbering: dependent-numbering("1.1"))
+#show heading: reset-counter(counter(figure.where(kind: image)))
+
+#set heading(numbering: "1")
+
+= Section 1
+#figure(rect(), caption: [A]) <fig:a> // 👈✅ 1.1
+
+= Section 2
+@fig:a // 👈✅ 1.1
+```
+
+However, if the `ref` has been reconstructed in a `show` rule, then it will give the _current_ context to the heading counter, rather than the context at Figure A.
+
+```typ
+// ...
+
+#show ref: it => {
+  let el = it.element
+  if el != none {
+    link(el.location(), {
+      el.supplement
+      [ ]
+      numbering(el.numbering, ..counter(el.func()).at(el.location()))
+    })
+  } else {
+    it
+  }
+}
+
+= Section 2
+@fig:a // 👈❌ 2.1
+```
+
+Note that only reconstructed `ref`s are affected. The following `show` rules do not reconstruct `it`, and canonical `ref`s still work.
+
+```typ
+#show ref: set text(blue)
+#show ref: it => box(stroke: purple, inset: 5pt, underline(it))
+
+= Section 2
+@fig:a // 👈✅ 1.1
+```
+
+To mitigate it, you could try either of the following.
+
+- Replace `counter("…")` with `counter(figure.where(kind: "…"))`, removing the need of customizing `ref` by reconstruction
+- Use [rich-counters](https://typst.app/universe/package/rich-counters) instead
+- Save the number in `metadata`, and retrieve it in `ref` (e.g., [theoretic](https://typst.app/universe/package/theoretic))
+
+(sorted from minimal hack to heavy hack)
+
+Please refer to [the issue](https://github.com/jbirnick/typst-great-theorems/issues/4) for further information.
