@@ -9,7 +9,58 @@ This works for **figures, theorems, and any other counters**.
 
 The advantage compared to [rich-counters](https://typst.app/universe/package/rich-counters/) is that you stick with native `counter`s and you can influence e.g. the `figure` counter directly without writing a new `show` rule with a custom counter or so.
 
-## Showcase
+## Showcase for [figures](https://typst.app/docs/reference/model/figure/)
+
+To make the figure counter depend on the chapter number, you have to:
+
+1. Enable numbering for headings by specifying a [numbering pattern or function](https://typst.app/docs/reference/model/heading/#parameters-numbering).
+2. Let figures inherit the chapter number by passing `dependent-numbering` to its `numbering` parameter.
+3. Reset the figure counter when appropriate by calling `reset-counter` in a show rule.
+
+Here's an example:
+
+```typ
+#import "@preview/headcount:0.1.0": dependent-numbering, reset-counter
+
+#set heading(numbering: "1.1")
+#set figure(
+  numbering: dependent-numbering("1-1")
+)
+#show heading: reset-counter(
+  counter(figure.where(kind: image))
+)
+```
+
+```typ
+= Chapter
+#figure(image(…), caption: […]) <fig>
+// 🖼️ Figure 1-1
+
+== Section
+#figure(image(…), caption: […])
+// 🖼️ Figure 1-2
+
+= Another chapter
+#figure(image(…), caption: […])
+// 🖼️ Figure 2-1
+
+References are also supported:
+@fig will become “Figure 1-1”.
+```
+
+To depend on the _section_ number instead, just set `levels` to `2` (the default is `1`):
+
+```typ
+#set figure(
+  numbering: dependent-numbering("1.1.1", levels: 2), // 👈
+)
+#show heading: reset-counter(
+  counter(figure.where(kind: image)),
+  levels: 2, // 👈
+)
+```
+
+## Showcase for [great-theorems](https://typst.app/universe/package/great-theorems)
 
 In the following example, we demonstrate how you can inherit 1 level of the heading counter for figures and 2 levels for theorems.
 
