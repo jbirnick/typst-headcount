@@ -3,14 +3,22 @@
   it
 }
 
-#let normalize-length(array, length) = {
+#let normalize-length(array, length, pad-zeros) = {
   if array.len() > length {
-    array = array.slice(0, length)
-  } else if array.len() < length {
-    array += (length - array.len())*(0,)
+    array.slice(0, length)
+  } else {
+    if pad-zeros {
+      array + (length - array.len()) * (0,)
+    } else {
+      array
+    }
   }
-
-  return array
 }
 
-#let dependent-numbering(style, levels: 1) = n => { numbering(style, ..normalize-length(counter(heading).get(), levels), n) }
+#let dependent-numbering(style, levels: 1, pad-zeros: true) = n => {
+  numbering(
+    style,
+    ..normalize-length(counter(heading).get(), levels, pad-zeros),
+    n,
+  )
+}

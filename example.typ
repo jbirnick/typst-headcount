@@ -5,7 +5,7 @@
 
 #set heading(numbering: "1.1")
 
-// contruct theorem environment with counter that inherits 2 levels from heading
+// construct theorem environment with counter that inherits 2 levels from heading
 #let thmcounter = counter("hello")
 #let theorem = mathblock(
   blocktitle: [Theorem],
