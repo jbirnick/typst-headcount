@@ -113,28 +113,28 @@ The theorems inherit 2 levels from the headings and the figures inherit 1 level 
 To make another `counter` inherit from the heading counter, you have to do **two** things.
 
 1. For the numbering of your counter, you have to use `dependent-numbering(...)`.
-   
+
    - `dependent-numbering(style, levels: 1, pad-zeros: true)` (needs `context`)
 
      Is a replacement for the `numbering` function, with the difference that it precedes any counter value with `levels` many values of the heading counter.
 
    ```typ
    #import "@preview/headcount:0.1.0": *
-   
+
    #set heading(numbering: "1.1")
-   
+
    #let mycounter = counter("hello")
-   
+
    = First heading
-   
+
    #context mycounter.step()
    #context mycounter.display(dependent-numbering("1.1")) // 👈✅ 1.1
-   
+
    = Second heading
-   
+
    #context mycounter.step()
    #context mycounter.display(dependent-numbering("1.1")) // 👈❌ 2.2
-   
+
    #context mycounter.step()
    #context mycounter.display(dependent-numbering("1.1")) // 👈❌ 2.3
    ```
@@ -152,22 +152,22 @@ To make another `counter` inherit from the heading counter, you have to do **two
 
    ```typ
    #import "@preview/headcount:0.1.0": *
-   
+
    #set heading(numbering: "1.1")
-   
+
    #let mycounter = counter("hello")
    #show heading: reset-counter(mycounter, levels: 1) // 👈 Add this line
-   
+
    = First heading
-   
+
    #context mycounter.step()
    #context mycounter.display(dependent-numbering("1.1")) // 👈✅ 1.1
-   
+
    = Second heading
-   
+
    #context mycounter.step()
    #context mycounter.display(dependent-numbering("1.1")) // 👈✅ 2.1
-   
+
    #context mycounter.step()
    #context mycounter.display(dependent-numbering("1.1")) // 👈✅ 2.2
    ```
@@ -243,7 +243,7 @@ So make sure that after you call e.g. `counter(heading).update(...)`, you place 
 
 Due to current Typst limitations, the context of `dependent-numbering` is not correct if the `ref` has been reconstructed in a `show` rule, making the displayed `counter(heading)` wrong.
 
-To be specific, in the following simple example, referencing `dependent-numbering` in other sections works as expected. 
+To be specific, in the following simple example, referencing `dependent-numbering` in other sections works as expected.
 
 ```typ
 #set figure(numbering: dependent-numbering("1.1"))
