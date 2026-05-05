@@ -13,4 +13,4 @@
   return array
 }
 
-#let dependent-numbering(style, levels: 1) = n => { numbering(style, ..normalize-length(counter(heading).get(), levels), n) }
+#let dependent-numbering(style, levels: 1) = (..n) => { numbering(style, ..normalize-length(counter(heading).get(), levels), ..n) }
