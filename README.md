@@ -14,8 +14,8 @@ The advantage compared to [rich-counters](https://typst.app/universe/package/ric
 In the following example, we demonstrate how you can inherit 1 level of the heading counter for figures and 2 levels for theorems.
 
 ```typ
-#import "@preview/headcount:0.1.0": *
-#import "@preview/great-theorems:0.1.0": *
+#import "@preview/headcount:0.1.1": *
+#import "@preview/great-theorems:0.1.2": *
 
 #show: great-theorems-init
 
@@ -55,7 +55,7 @@ The theorems inherit 2 levels from the headings and the figures inherit 1 level 
 #figure([SOME FIGURE], caption: [some figure])
 #theorem[Some theorem.]
 ```
-![](example.png)
+![A rendering of the showcase example.](example.png)
 
 ## Usage
 
@@ -68,7 +68,7 @@ To make another `counter` inherit from the heading counter, you have to do **two
      Is a replacement for the `numbering` function, with the difference that it precedes any counter value with `level` many values of the heading counter.
 
    ```typ
-   #import "@preview/headcount:0.1.0": *
+   #import "@preview/headcount:0.1.1": *
    
    #set heading(numbering: "1.1")
    
@@ -100,7 +100,7 @@ To make another `counter` inherit from the heading counter, you have to do **two
    **Important:** This `show` rule should be placed as the _last_ `show` rule for `heading`, or at least after `show` rules for `heading` that employ a custom design, see [here](https://forum.typst.app/t/i-figured-broken-with-custom-template/1730/10?u=jbirnick) for an explanation.
 
    ```typ
-   #import "@preview/headcount:0.1.0": *
+   #import "@preview/headcount:0.1.1": *
    
    #set heading(numbering: "1.1")
    #show heading: reset-counter(mycounter, levels: 1)
